@@ -1,0 +1,57 @@
+{
+  "app": {
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/sunwarm/.ohos/config/default_harmonyApp_0w2N0ZkRycUHPLN72FbfDtsvsyb6L7coMXuXW1w58_A=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B1703640661F6324843417D7BE9FBEF6DCC53F48C554CFB94B9D60D452D7304108B54EB8923898C",
+          "profile": "/Users/sunwarm/.ohos/config/default_harmonyApp_0w2N0ZkRycUHPLN72FbfDtsvsyb6L7coMXuXW1w58_A=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/sunwarm/.ohos/config/default_harmonyApp_0w2N0ZkRycUHPLN72FbfDtsvsyb6L7coMXuXW1w58_A=.p12",
+          "storePassword": "0000001B9E878554BF5B99040B1426040C44BBBE30221E0AF61F1793312CFB1CEF1C9D37C394D1BE3CD57F"
+        }
+      }
+    ],
+    "products": [
+      {
+        "name": "default",
+        "signingConfig": "default",
+        "targetSdkVersion": "5.1.1(19)",
+        "compatibleSdkVersion": "5.0.4(16)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "nativeCompiler": "BiSheng",
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      }
+    ],
+    "buildModeSet": [
+      {
+        "name": "debug",
+      },
+      {
+        "name": "release"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "name": "entry",
+      "srcPath": "./entry",
+      "targets": [
+        {
+          "name": "default",
+          "applyToProducts": [
+            "default"
+          ]
+        }
+      ]
+    }
+  ]
+}

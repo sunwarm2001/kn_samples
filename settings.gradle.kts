@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        maven("/Users/user/git/kmp/KuiklyBase-kotlin/build/repo")
+        maven("/Volumes/sunwarm/project/kmp-test/KuiklyBase-kotlin/build/repo")
         gradlePluginPortal()
         mavenCentral()
     }
@@ -8,7 +8,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven("/Users/user/git/kmp/KuiklyBase-kotlin/build/repo")
+        maven("/Volumes/sunwarm/project/kmp-test/KuiklyBase-kotlin/build/repo")
         mavenCentral()
     }
 }
