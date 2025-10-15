@@ -1,6 +1,6 @@
 pluginManagement {
     repositories {
-        maven("/Volumes/sunwarm/project/kmp-test/KuiklyBase-kotlin/build/repo")
+        maven("https://kmp-ohos-test.obs.cn-south-1.myhuaweicloud.com/maven/")
         gradlePluginPortal()
         mavenCentral()
     }
@@ -8,7 +8,7 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven("/Volumes/sunwarm/project/kmp-test/KuiklyBase-kotlin/build/repo")
+        maven("https://kmp-ohos-test.obs.cn-south-1.myhuaweicloud.com/maven/")
         mavenCentral()
     }
 }
