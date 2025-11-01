@@ -1,5 +1,5 @@
 plugins {
-    kotlin("multiplatform") version "2.2.0-ohos-04"
+    kotlin("multiplatform") version "2.2.0-ohos-06"
 }
 group = "com.example"
 version = "1.0-SNAPSHOT"
