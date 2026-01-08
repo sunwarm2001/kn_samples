@@ -1,3 +1,5 @@
+import kotlinx.atomicfu.*
+
 fun addNumbers(a: Int, b: Int): Int {
     return a + b
 }
@@ -106,4 +108,116 @@ fun processIntListAndString(numbers: List<Int>, str: String): String {
 
 fun processStringListAndInt(strings: List<String>, multiplier: Int): List<String> {
     return strings.map { it.repeat(multiplier) }
+}
+
+// ========== AtomicFu 测试函数 (使用 kotlinx.atomicfu 库) ==========
+
+// 原子整数计数器 (使用 atomic() 函数)
+val atomicCounter = atomic(0)
+
+fun incrementAtomicCounter(): Int {
+    return atomicCounter.incrementAndGet()
+}
+
+fun decrementAtomicCounter(): Int {
+    return atomicCounter.decrementAndGet()
+}
+
+fun getAtomicCounterValue(): Int {
+    return atomicCounter.value
+}
+
+fun setAtomicCounterValue(value: Int) {
+    atomicCounter.value = value
+}
+
+fun addToAtomicCounter(delta: Int): Int {
+    return atomicCounter.addAndGet(delta)
+}
+
+fun compareAndSetAtomicCounter(expected: Int, newValue: Int): Boolean {
+    return atomicCounter.compareAndSet(expected, newValue)
+}
+
+// 原子长整数操作
+val atomicLongCounter = atomic(0L)
+
+fun incrementAtomicLongCounter(): Long {
+    return atomicLongCounter.incrementAndGet()
+}
+
+fun getAtomicLongCounterValue(): Long {
+    return atomicLongCounter.value
+}
+
+fun setAtomicLongCounterValue(value: Long) {
+    atomicLongCounter.value = value
+}
+
+fun addToAtomicLongCounter(delta: Long): Long {
+    return atomicLongCounter.addAndGet(delta)
+}
+
+// 原子引用操作
+val atomicStringRef = atomic<String?>(null)
+
+fun setAtomicString(value: String?) {
+    atomicStringRef.value = value
+}
+
+fun getAtomicString(): String? {
+    return atomicStringRef.value
+}
+
+fun compareAndSetAtomicString(expected: String?, newValue: String?): Boolean {
+    return atomicStringRef.compareAndSet(expected, newValue)
+}
+
+// 线程安全计数器类
+class ThreadSafeCounter {
+    private val count = atomic(0)
+    
+    fun increment(): Int = count.incrementAndGet()
+    fun decrement(): Int = count.decrementAndGet()
+    fun get(): Int = count.value
+    fun set(value: Int) { count.value = value }
+    fun reset() { count.value = 0 }
+    fun addAndGet(delta: Int): Int = count.addAndGet(delta)
+}
+
+// 原子累加列表
+fun atomicSumIntList(numbers: List<Int>): Int {
+    val sum = atomic(0)
+    numbers.forEach { number ->
+        sum.addAndGet(number)
+    }
+    return sum.value
+}
+
+// 原子更新最大值
+fun atomicFindMax(numbers: List<Int>): Int {
+    if (numbers.isEmpty()) return Int.MIN_VALUE
+    val max = atomic(numbers[0])
+    numbers.forEach { number ->
+        var current: Int
+        do {
+            current = max.value
+            if (number <= current) break
+        } while (!max.compareAndSet(current, number))
+    }
+    return max.value
+}
+
+// 原子更新最小值
+fun atomicFindMin(numbers: List<Int>): Int {
+    if (numbers.isEmpty()) return Int.MAX_VALUE
+    val min = atomic(numbers[0])
+    numbers.forEach { number ->
+        var current: Int
+        do {
+            current = min.value
+            if (number >= current) break
+        } while (!min.compareAndSet(current, number))
+    }
+    return min.value
 }

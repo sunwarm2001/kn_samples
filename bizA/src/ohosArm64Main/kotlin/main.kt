@@ -134,3 +134,88 @@ fun processIntListAndStringWrapper(numbers: List<Int>, str: String): String {
 fun processStringListAndIntWrapper(strings: List<String>, multiplier: Int): List<String> {
     return processStringListAndInt(strings, multiplier)
 }
+
+// ========== AtomicFu 测试函数 ==========
+
+@CName("bizA_atomic_increment")
+fun atomicIncrementWrapper(): Int {
+    return incrementAtomicCounter()
+}
+
+@CName("bizA_atomic_decrement")
+fun atomicDecrementWrapper(): Int {
+    return decrementAtomicCounter()
+}
+
+@CName("bizA_atomic_get")
+fun atomicGetWrapper(): Int {
+    return getAtomicCounterValue()
+}
+
+@CName("bizA_atomic_set")
+fun atomicSetWrapper(value: Int) {
+    setAtomicCounterValue(value)
+}
+
+@CName("bizA_atomic_add")
+fun atomicAddWrapper(delta: Int): Int {
+    return addToAtomicCounter(delta)
+}
+
+@CName("bizA_atomic_compare_and_set")
+fun atomicCompareAndSetWrapper(expected: Int, newValue: Int): Boolean {
+    return compareAndSetAtomicCounter(expected, newValue)
+}
+
+// AtomicLong 测试
+@CName("bizA_atomic_long_increment")
+fun atomicLongIncrementWrapper(): Long {
+    return incrementAtomicLongCounter()
+}
+
+@CName("bizA_atomic_long_get")
+fun atomicLongGetWrapper(): Long {
+    return getAtomicLongCounterValue()
+}
+
+@CName("bizA_atomic_long_set")
+fun atomicLongSetWrapper(value: Long) {
+    setAtomicLongCounterValue(value)
+}
+
+@CName("bizA_atomic_long_add")
+fun atomicLongAddWrapper(delta: Long): Long {
+    return addToAtomicLongCounter(delta)
+}
+
+// AtomicReference<String?> 测试
+@CName("bizA_atomic_string_set")
+fun atomicStringSetWrapper(value: String?) {
+    setAtomicString(value)
+}
+
+@CName("bizA_atomic_string_get")
+fun atomicStringGetWrapper(): String? {
+    return getAtomicString()
+}
+
+@CName("bizA_atomic_string_compare_and_set")
+fun atomicStringCompareAndSetWrapper(expected: String?, newValue: String?): Boolean {
+    return compareAndSetAtomicString(expected, newValue)
+}
+
+// 原子操作列表函数
+@CName("bizA_atomic_sum_int_list")
+fun atomicSumIntListWrapper(numbers: List<Int>): Int {
+    return atomicSumIntList(numbers)
+}
+
+@CName("bizA_atomic_find_max")
+fun atomicFindMaxWrapper(numbers: List<Int>): Int {
+    return atomicFindMax(numbers)
+}
+
+@CName("bizA_atomic_find_min")
+fun atomicFindMinWrapper(numbers: List<Int>): Int {
+    return atomicFindMin(numbers)
+}

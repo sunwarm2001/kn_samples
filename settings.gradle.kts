@@ -1,6 +1,8 @@
 pluginManagement {
     repositories {
-        maven("/Volumes/disk/git/kmp/20/build/repo")
+        maven("/Volumes/sunwarm/project/kmp-test/kotlin-hjc-1030-origin/build/repo")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-tencent")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public")
         gradlePluginPortal()
         mavenCentral()
     }
@@ -8,7 +10,9 @@ pluginManagement {
 
 dependencyResolutionManagement {
     repositories {
-        maven("/Volumes/disk/git/kmp/20/build/repo")
+        maven("/Volumes/sunwarm/project/kmp-test/kotlin-hjc-1030-origin/build/repo")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-tencent")
+        maven("https://mirrors.tencent.com/nexus/repository/maven-public")
         mavenCentral()
     }
 }

@@ -1,0 +1,6 @@
+[versions]
+atomicFu = "0.23.2-KBA-001"
+
+[libraries]
+atomicFu = { module = "org.jetbrains.kotlinx:atomicfu", version.ref = "atomicFu" }
+
