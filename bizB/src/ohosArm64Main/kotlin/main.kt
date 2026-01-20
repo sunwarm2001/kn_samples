@@ -1,5 +1,75 @@
 import kotlinx.atomicfu.*
 
+/**
+ * Bug 复现用例 - 根据 BUG_ANALYSIS.md 构造的最小复现场景
+ * 
+ * 这个文件用于复现 Kotlin/Native 编译错误：
+ * org.jetbrains.kotlin.backend.konan.llvm.NativeCodeGeneratorException
+ * 
+ * 触发条件：
+ * 1. 使用 AtomicFU 的 Trace 功能
+ * 2. 编译 ohosArm64 Native 目标
+ * 3. 使用 Kotlin 2.0.255-SNAPSHOT 快照版本
+ * 4. 使用特定的编译器参数（-Xbinary=emitRuntime=noruntime, -Xbinary=moduleExclude=stdlib）
+ */
+
+/**
+ * BugReproducer 类 - 完全按照 BUG_ANALYSIS.md 中的最小复现用例构造
+ * 使用 Trace 功能，这会触发 TraceFormat.kt 的编译
+ */
+class BugReproducer {
+    // 使用 Trace 功能，这会触发 TraceFormat.kt 的编译
+    private val trace = Trace(10)
+    private val counter = atomic(0, trace)
+    
+    fun increment() {
+        counter.incrementAndGet()
+        trace.append("Increment event")
+    }
+    
+    fun getValue(): Int {
+        return counter.value
+    }
+}
+
+// 全局实例，确保 TraceFormat 被实际使用
+private val bugReproducer = BugReproducer()
+
+/**
+ * 测试函数 - 触发 TraceFormat 的编译和使用
+ */
+fun testBugReproducer(): Int {
+    bugReproducer.increment()
+    return bugReproducer.getValue()
+}
+
+/**
+ * 额外的 TraceFormat 使用场景 - 确保 TraceFormat 被充分使用
+ * 自定义 TraceFormat 实现，使用 StringBuilder（模拟原始 TraceFormat.kt 的结构）
+ */
+object CustomTraceFormat : TraceFormat() {
+    override fun format(index: Int, event: Any): String {
+        val tmp = StringBuilder()
+        tmp.append(index)
+        tmp.append(": ")
+        tmp.append(event.toString())
+        return tmp.toString()
+    }
+}
+
+// 使用自定义 TraceFormat 创建带跟踪的原子变量
+private val tracedCounter = atomic(0, Trace(64, CustomTraceFormat))
+
+fun incrementTracedCounter(): Int {
+    return tracedCounter.incrementAndGet()
+}
+
+fun getTracedCounterValue(): Int {
+    return tracedCounter.value
+}
+
+// ========== 原有代码 ==========
+
 fun addNumbers(a: Int, b: Int): Int {
     return a + b
 }
@@ -221,3 +291,4 @@ fun atomicFindMin(numbers: List<Int>): Int {
     }
     return min.value
 }
+
